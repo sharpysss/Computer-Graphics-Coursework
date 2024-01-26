@@ -1,4 +1,4 @@
-# Graphics Coursework
+# Computer Graphics Coursework Template Files
 
 ## Clone the repository
 
