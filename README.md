@@ -1,6 +1,6 @@
 # Computer Graphics Coursework Template Files
 
-## Clone the repository
+## Get the files
 
 Using the command prompt/terminal
 
