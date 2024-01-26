@@ -8,6 +8,6 @@ Using the command prompt/terminal
 git clone https://github.com/jonshiach/Graphics_coursework.git
 ```
 
-Or download the [zip file](https://github.com/jonshiach/Graphics_coursework#:~:text=with%20Visual%20Studio-,Download,-ZIP)
+Or download the [zip file](https://github.com/jonshiach/Graphics_coursework/zipball/master/)
 
 ## Build instructions
