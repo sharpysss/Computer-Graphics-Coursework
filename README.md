@@ -2,6 +2,8 @@
 
 ## Get the files
 
+Install git if you haven't already done so ([instructions](https://github.com/git-guides/install-git)). 
+
 Using the command prompt/terminal
 
 ```
