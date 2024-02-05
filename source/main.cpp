@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Include GLEW and GLFW
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -47,6 +46,7 @@ int main( void )
     // Dark grey background
     glClearColor(0.2f, 0.2f, 0.2f, 0.0f);
     
+    // Render loop
 	do {
         // Clear the window
 		glClear(GL_COLOR_BUFFER_BIT);
