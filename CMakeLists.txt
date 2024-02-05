@@ -23,10 +23,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/external/rpavlik-cmake-module
 include(CreateLaunchers)
 include(MSVCMultipleProcessCompile) # /MP
 
-#if(INCLUDE_DISTRIB)
-#	add_subdirectory(distrib)
-#endif(INCLUDE_DISTRIB)
-
 include_directories(
 	external/glfw-3.1.2/include/
 	external/glm-0.9.7.1/
@@ -69,7 +65,7 @@ if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode" )
 
 add_custom_command(
    TARGET Graphics_coursework POST_BUILD
-   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/source${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/source/"
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Graphics_coursework${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/source/"
 )
 
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )
