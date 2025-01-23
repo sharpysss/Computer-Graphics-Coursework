@@ -38,10 +38,10 @@ TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Applications/CMake.app/Cont
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Applications/CMake.app/Contents/share/cmake-3.28/Modules/Platform/Darwin.cmake))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Applications/CMake.app/Contents/share/cmake-3.28/Modules/Platform/UnixPaths.cmake))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Applications/CMake.app/Contents/share/cmake-3.28/Modules/WriteBasicConfigVersionFile.cmake))
+TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Computer-Graphics-Coursework/build/CMakeFiles/3.28.0-rc3/CMakeCCompiler.cmake))
+TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Computer-Graphics-Coursework/build/CMakeFiles/3.28.0-rc3/CMakeCXXCompiler.cmake))
+TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Computer-Graphics-Coursework/build/CMakeFiles/3.28.0-rc3/CMakeSystem.cmake))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/CMakeLists.txt))
-TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/build/CMakeFiles/3.28.0-rc3/CMakeCCompiler.cmake))
-TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/build/CMakeFiles/3.28.0-rc3/CMakeCXXCompiler.cmake))
-TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/build/CMakeFiles/3.28.0-rc3/CMakeSystem.cmake))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/external/CMakeLists.txt))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/external/glfw-3.1.2/CMakeLists.txt))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/external/glfw-3.1.2/cmake_uninstall.cmake.in))
@@ -53,5 +53,5 @@ TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStor
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/external/glfw-3.1.2/src/glfw_config.h.in))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/external/glfw-3.1.2/tests/CMakeLists.txt))
 
-/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/build/CMakeFiles/cmake.check_cache: $(TARGETS)
-	/Applications/CMake.app/Contents/bin/cmake -S/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework -B/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/build
+/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Computer-Graphics-Coursework/build/CMakeFiles/cmake.check_cache: $(TARGETS)
+	/Applications/CMake.app/Contents/bin/cmake -S/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework -B/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Computer-Graphics-Coursework/build

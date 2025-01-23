@@ -37,5 +37,5 @@ if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/objdump")
 endif()
 
-set(CMAKE_BINARY_DIR "/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/build")
+set(CMAKE_BINARY_DIR "/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Computer-Graphics-Coursework/build")
 

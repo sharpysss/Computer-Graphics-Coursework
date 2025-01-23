@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+Target 'gears' in project 'Computer_Graphics_Coursework'
+➜ Explicit dependency on target 'glfw' in project 'Computer_Graphics_Coursework'
+Target 'glfw' in project 'Computer_Graphics_Coursework' (no dependencies)

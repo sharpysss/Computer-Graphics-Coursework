@@ -1,9 +1,9 @@
 
-if (NOT EXISTS "/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/build/external/glfw-3.1.2/install_manifest.txt")
-  message(FATAL_ERROR "Cannot find install manifest: \"/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/build/external/glfw-3.1.2/install_manifest.txt\"")
+if (NOT EXISTS "/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Computer-Graphics-Coursework/build/external/glfw-3.1.2/install_manifest.txt")
+  message(FATAL_ERROR "Cannot find install manifest: \"/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Computer-Graphics-Coursework/build/external/glfw-3.1.2/install_manifest.txt\"")
 endif()
 
-file(READ "/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Graphics_coursework/build/external/glfw-3.1.2/install_manifest.txt" files)
+file(READ "/Users/jon/Library/CloudStorage/Dropbox/Work/2024_2025/Graphics/Coursework/Computer-Graphics-Coursework/build/external/glfw-3.1.2/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 
 foreach (file ${files})
