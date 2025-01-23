@@ -22,7 +22,7 @@ git clone https://github.com/jonshiach/Computer-Graphics-Coursework.git
 ## Build instructions
 
 1. Download, install and run <a href="https://www.cmake.org" target="_blank">CMake</a>.
-2. Click on **Browse Source...** next to 'Where is the source code?' and select the **CComputer-Graphics-Coursework/** folder.
+2. Click on **Browse Source...** next to 'Where is the source code?' and select the **Computer-Graphics-Coursework/** folder.
 3. Do the same for 'Where to build the binaries?' and select the **Computer-Graphics-Coursework/build/** folder.
 4. Click **Configure** and select Visual Studio (Windows) or Xcode (macOS) and click **Done**. Once the configuration is complete click **Configure** again.
 5. Click **Generate**.
