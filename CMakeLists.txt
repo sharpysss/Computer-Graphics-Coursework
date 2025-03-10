@@ -35,7 +35,7 @@ add_definitions(
 # ==============================================================================
 # Coursework 
 add_executable(Computer_Graphics_Coursework
-	source/main.cpp
+	source/graphics_coursework.cpp
 	source/vertexShader.glsl
 	source/fragmentShader.glsl
 
