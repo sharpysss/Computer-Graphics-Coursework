@@ -11,6 +11,12 @@ endif()
 # Compile external dependencies 
 add_subdirectory (external)
 
+# On Visual 2005 and above, this module can set the debug working directory
+cmake_policy(SET CMP0026 OLD)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/external/rpavlik-cmake-modules-fe2273")
+include(CreateLaunchers)
+include(MSVCMultipleProcessCompile) # /MP
+
 include_directories(
 	external/glfw-3.1.2/include/
 	external/glew-1.13.0/include/
@@ -33,9 +39,8 @@ add_definitions(
 )
 
 # ==============================================================================
-# Coursework 
 add_executable(Computer_Graphics_Coursework
-	source/graphics_coursework.cpp
+	source/coursework.cpp
 	source/vertexShader.glsl
 	source/fragmentShader.glsl
 
@@ -50,20 +55,23 @@ add_executable(Computer_Graphics_Coursework
 	common/model.cpp
 	common/light.hpp
 	common/light.cpp
+
 )
 target_link_libraries(Computer_Graphics_Coursework
 	${ALL_LIBS}
 )
 
 # Xcode and Visual working directories
-set_target_properties(Computer_Graphics_Coursework PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Computer_Graphics_Coursework/")
+set_target_properties(Computer_Graphics_Coursework PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/source/")
+create_target_launcher(Computer_Graphics_Coursework WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/source/")
+create_default_target_launcher(Computer_Graphics_Coursework WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/source/") 
 
 # ==============================================================================
 if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode" )
 
 add_custom_command(
-	TARGET Computer_Graphics_Coursework POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Computer_Graphics_Coursework${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/Computer_Graphics_Coursework/"
+   TARGET Computer_Graphics_Coursework POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Computer_Graphics_Coursework${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/source/"
 )
 
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )
