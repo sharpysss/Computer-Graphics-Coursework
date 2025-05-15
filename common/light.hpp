@@ -36,5 +36,10 @@ public:
 
 
     void draw(unsigned int shaderID, glm::mat4 view, glm::mat4 projection, Model lightModel);
+
+    
+    void setSpotLightPosition(unsigned int index, const glm::vec3& position);
+    void setSpotLightDirection(unsigned int index, const glm::vec3& direction);
+
 };
 

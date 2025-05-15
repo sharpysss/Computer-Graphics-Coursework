@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <cmath>
 
 #include <GL/glew.h>
@@ -84,7 +84,7 @@ int main(void)
 
     unsigned int shaderID, lightShaderID;
     shaderID = LoadShaders("vertexShader.glsl", "fragmentShader.glsl");
-    lightShaderID = LoadShaders("vertexShader.glsl", "fragmentShader.glsl");
+
 
 
     glUseProgram(shaderID);
@@ -105,7 +105,7 @@ int main(void)
     Light lightSources;
 
 
-    lightSources.addSpotLight(glm::vec3(0.0f, 3.0f, 0.0f),
+    lightSources.addSpotLight(glm::vec3(-4.0f, 3.0f, 0.0f),
         glm::vec3(0.0f, -1.0f, 0.0f),
         glm::vec3(1.0f, 1.0f, 1.0f),
         1.0f, 0.1f, 0.02f,
@@ -121,15 +121,19 @@ int main(void)
         glm::vec3(-3.0f, 1.0f, -2.0f),
         glm::vec3(-2.0f, 1.0f, -5.0f),
         glm::vec3(-3.0f, 1.0f, -6.0f),
+        glm::vec3(-3.0f, 1.0f, -4.0f),
+        glm::vec3(-2.0f, 1.0f, -7.0f),
+        glm::vec3(-3.0f, 1.0f, -6.5f),
 
 
     };
-    basketball.addTexture("../assets/basketball.png", "diffuse");
-    basketball.addTexture("../assets/basketball.png", "specular");
+    basketball.addTexture("../assets/DiffuseMap.JPG", "diffuse");
+    basketball.addTexture("../assets/NormalMap.PNG", "normal");
+    basketball.addTexture("../assets/SpecularMap.PNG", "specular");
     std::vector<Object> objects;
     Object object;
     object.name = "basketball";
-    for (unsigned int i = 0; i < 10; i++)
+    for (unsigned int i = 0; i < 6; i++)
     {
         object.position = basketballPositions[i];
         object.rotation = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -137,8 +141,8 @@ int main(void)
         object.angle = Maths::radians(20.0f * i);
         objects.push_back(object);
     }
- 
-    
+
+
 
 
     wall.addTexture("../assets/Fence_color.png", "normal");
@@ -159,7 +163,6 @@ int main(void)
 
     while (!glfwWindowShouldClose(window))
     {
-
         float time = glfwGetTime();
         deltaTime = time - previousTime;
         previousTime = time;
@@ -167,18 +170,32 @@ int main(void)
         keyboardInput(window);
         mouseInput(window);
 
+      
+        for (unsigned int i = 0; i < objects.size(); i++) {
+            if (objects[i].name == "basketball") {
+                objects[i].angle += deltaTime * glm::radians(90.0f);
+                if (objects[i].angle > glm::two_pi<float>())
+                    objects[i].angle -= glm::two_pi<float>();
+            }
+        }
+
 
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
         camera.target = camera.eye + camera.front;
         camera.calculateMatrices();
 
-
         glUseProgram(shaderID);
 
-      
+        glm::vec3 newSpotPos = glm::vec3(4.0f * cos(time), 5.0f, 6.0f * sin(time));
+        glm::vec3 newSpotDir = glm::vec3(0.0f, -1.0f, 0.0f);
+
+        if (!lightSources.lightSources.empty() && lightSources.lightSources[0].type == 2) {
+            lightSources.lightSources[0].position = newSpotPos;
+            lightSources.lightSources[0].direction = glm::normalize(newSpotDir);
+        }
+
         lightSources.toShader(shaderID, camera.view);
 
         for (unsigned int i = 0; i < static_cast<unsigned int>(objects.size()); i++)
@@ -188,7 +205,6 @@ int main(void)
             glm::mat4 rotate = Maths::rotate(objects[i].angle, objects[i].rotation);
             glm::mat4 model = translate * rotate * scale;
 
-
             glm::mat4 MV = camera.view * model;
             glm::mat4 MVP = camera.projection * MV;
             glUniformMatrix4fv(glGetUniformLocation(shaderID, "MVP"), 1, GL_FALSE, &MVP[0][0]);
@@ -197,21 +213,15 @@ int main(void)
             if (objects[i].name == "basketball")
                 basketball.draw(shaderID);
 
-
             if (objects[i].name == "wall")
                 wall.draw(shaderID);
-
         }
 
-
-        lightSources.draw(lightShaderID, camera.view, camera.projection, sphere);
-
+        lightSources.draw(shaderID, camera.view, camera.projection, sphere);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
-
     basketball.deleteBuffers();
     glDeleteProgram(shaderID);
 

@@ -72,7 +72,7 @@ void Light::draw(unsigned int shaderID, glm::mat4 view, glm::mat4 projection, Mo
 
 
         glm::mat4 translate = glm::translate(glm::mat4(1.0f), lightSources[i].position);
-        glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+        glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.3f));
         glm::mat4 model = translate * scale;
 
         glm::mat4 MVP = projection * view * model;
@@ -84,4 +84,19 @@ void Light::draw(unsigned int shaderID, glm::mat4 view, glm::mat4 projection, Mo
         lightModel.draw(shaderID);
     }
 }
+
+
+
+void Light::setSpotLightPosition(unsigned int index, const glm::vec3& position)
+{
+    if (index < lightSources.size() && lightSources[index].type == 2) // 2 == spotlight
+        lightSources[index].position = position;
+}
+
+void Light::setSpotLightDirection(unsigned int index, const glm::vec3& direction)
+{
+    if (index < lightSources.size() && lightSources[index].type == 2)
+        lightSources[index].direction = glm::normalize(direction);
+}
+
 
