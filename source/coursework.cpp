@@ -92,7 +92,7 @@ int main(void)
 
     Model basketball("../assets/basketball.obj");
     Model sphere("../assets/sphere.obj");
-    Model wall("../assets/objfence.obj");
+    Model floor("../assets/objfence.obj");
 
 
 
@@ -105,14 +105,24 @@ int main(void)
     Light lightSources;
 
 
-    lightSources.addSpotLight(glm::vec3(-4.0f, 3.0f, 0.0f),
+    lightSources.addSpotLight(
+        glm::vec3(-4.0f, 3.0f, 0.0f),
         glm::vec3(0.0f, -1.0f, 0.0f),
         glm::vec3(1.0f, 1.0f, 1.0f),
         1.0f, 0.1f, 0.02f,
-        std::cos(Maths::radians(45.0f)));
+        std::cos(Maths::radians(45.0f))
+    );
 
-    lightSources.addDirectionalLight(glm::vec3(1.0f, -1.0f, 0.0f),
-        glm::vec3(1.0f, 1.0f, 1.0f));
+    lightSources.addDirectionalLight(
+        glm::vec3(1.0f, -1.0f, 0.0f),
+        glm::vec3(1.0f, 1.0f, 1.0f)
+    );
+
+    lightSources.addPointLight(
+        glm::vec3(2.0f, 2.0f, 2.0f),
+        glm::vec3(1.0f, 0.9f, 0.7f),
+        1.0f, 0.09f, 0.032f
+    );
 
 
 
@@ -144,21 +154,22 @@ int main(void)
 
 
 
+    floor.addTexture("../assets/FloorDiffuse.JPG", "diffuse");
+    floor.addTexture("../assets/FloorNormal.PNG", "normal");
 
-    wall.addTexture("../assets/Fence_color.png", "normal");
+    floor.addTexture("../assets/FloorSpecular.PNG", "specular");
 
-
-    wall.ka = 0.1f;
-    wall.kd = 0.8f;
-    wall.ks = 0.2f;
-    wall.Ns = 16.0f;
+    floor.ka = 0.3f;
+    floor.kd = 1.0f;
+    floor.ks = 0.3f;
+    floor.Ns = 32.0f;
 
 
     object.position = glm::vec3(-2.0f, 0.5f, -5.0f);
     object.scale = glm::vec3(2.0f, 1.0f, 2.0f);
     object.rotation = glm::vec3(90.0f, 1.0f, 90.0f);
     object.angle = 0.0f;
-    object.name = "wall";
+    object.name = "floor";
     objects.push_back(object);
 
     while (!glfwWindowShouldClose(window))
@@ -213,11 +224,29 @@ int main(void)
             if (objects[i].name == "basketball")
                 basketball.draw(shaderID);
 
-            if (objects[i].name == "wall")
-                wall.draw(shaderID);
+            if (objects[i].name == "floor")
+                floor.draw(shaderID);
         }
 
         lightSources.draw(shaderID, camera.view, camera.projection, sphere);
+
+        glm::vec3 pointLightPos = glm::vec3(2.0f, 2.0f, 2.0f);
+
+        glm::mat4 translate = Maths::translate(pointLightPos);
+        glm::mat4 scale = Maths::scale(glm::vec3(0.1f));
+        glm::mat4 model = translate * scale;
+        glm::mat4 MV = camera.view * model;
+        glm::mat4 MVP = camera.projection * MV;
+
+        glUniformMatrix4fv(glGetUniformLocation(shaderID, "MVP"), 1, GL_FALSE, &MVP[0][0]);
+        glUniformMatrix4fv(glGetUniformLocation(shaderID, "MV"), 1, GL_FALSE, &MV[0][0]);
+
+        glUniform1f(glGetUniformLocation(shaderID, "ka"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderID, "kd"), 0.0f);
+        glUniform1f(glGetUniformLocation(shaderID, "ks"), 0.0f);
+
+        sphere.draw(shaderID);
+
 
         glfwSwapBuffers(window);
         glfwPollEvents();
