@@ -84,7 +84,7 @@ int main(void)
 
     unsigned int shaderID, lightShaderID;
     shaderID = LoadShaders("vertexShader.glsl", "fragmentShader.glsl");
-
+    
 
 
     glUseProgram(shaderID);
@@ -93,7 +93,7 @@ int main(void)
     Model basketball("../assets/basketball.obj");
     Model sphere("../assets/sphere.obj");
     Model floor("../assets/objfence.obj");
-
+    Model football("../assets/Soccer_Ball.obj");
 
 
     basketball.ka = 0.2f;
@@ -101,16 +101,20 @@ int main(void)
     basketball.ks = 1.0f;
     basketball.Ns = 20.0f;
 
+    football.ka = 0.6f;
+    football.kd = 0.9f;
+    football.ks = 1.0f;
+    football.Ns = 10.0f;
 
     Light lightSources;
 
 
     lightSources.addSpotLight(
-        glm::vec3(-4.0f, 3.0f, 0.0f),
-        glm::vec3(0.0f, -1.0f, 0.0f),
+        glm::vec3(-2.0f, 3.0f, 1.0f),
+        glm::vec3(0.0f, 0.0f, 1.0f),
         glm::vec3(1.0f, 1.0f, 1.0f),
         1.0f, 0.1f, 0.02f,
-        std::cos(Maths::radians(45.0f))
+        std::cos(Maths::radians(30.0f))
     );
 
     lightSources.addDirectionalLight(
@@ -119,33 +123,58 @@ int main(void)
     );
 
     lightSources.addPointLight(
-        glm::vec3(2.0f, 2.0f, 2.0f),
-        glm::vec3(1.0f, 0.9f, 0.7f),
-        1.0f, 0.09f, 0.032f
+        glm::vec3(0.0f, 0.0f, 1.0f), 
+        glm::vec3(1.0f, 0.9f, 0.7f),  
+        1.0f, 0.09f, 0.032f          
     );
 
 
-
-
     glm::vec3 basketballPositions[] = {
-        glm::vec3(-3.0f, 1.0f, -2.0f),
-        glm::vec3(-2.0f, 1.0f, -5.0f),
-        glm::vec3(-3.0f, 1.0f, -6.0f),
-        glm::vec3(-3.0f, 1.0f, -4.0f),
-        glm::vec3(-2.0f, 1.0f, -7.0f),
-        glm::vec3(-3.0f, 1.0f, -6.5f),
+      glm::vec3(-3.0f, 1.0f, -2.0f),
+      glm::vec3(-2.0f, 1.5f, -5.0f),
+      glm::vec3(-3.0f, 1.2f, -6.0f),
+      glm::vec3(-3.0f, 1.0f, -4.0f),
+      glm::vec3(-2.0f, 1.5f, -7.0f),
+      glm::vec3(-3.0f, 1.5f, -6.5f),
+
+
+    };
+
+
+    glm::vec3 footballPositions[] = {
+        glm::vec3(-3.0f, 0.7f, -2.0f),
+        glm::vec3(-2.0f, 0.7f, -5.0f),
+        glm::vec3(-3.0f, 0.7f, -6.0f),
+        glm::vec3(-3.0f, 0.7f, -4.0f),
+        glm::vec3(-2.0f, 0.7f, -7.0f),
+        glm::vec3(-3.0f, 0.7f, -6.5f),
 
 
     };
     basketball.addTexture("../assets/DiffuseLeather.JPG", "diffuse");
     basketball.addTexture("../assets/NormalLeather.PNG", "normal");
     basketball.addTexture("../assets/SpecularLeather.PNG", "specular");
+    football.addTexture("../assets/DiffuseFootball.JPG", "diffuse");
+    football.addTexture("../assets/NormalFootball.JPG", "normal");
+ 
     std::vector<Object> objects;
     Object object;
     object.name = "basketball";
     for (unsigned int i = 0; i < 6; i++)
     {
         object.position = basketballPositions[i];
+        object.rotation = glm::vec3(1.0f, 1.0f, 1.0f);
+        object.scale = glm::vec3(0.75f, 0.75f, 0.75f);
+        object.angle = Maths::radians(20.0f * i);
+        objects.push_back(object);
+    }
+
+     objects;
+     object;
+    object.name = "football";
+    for (unsigned int i = 0; i < 6; i++)
+    {
+        object.position = footballPositions[i];
         object.rotation = glm::vec3(1.0f, 1.0f, 1.0f);
         object.scale = glm::vec3(0.75f, 0.75f, 0.75f);
         object.angle = Maths::radians(20.0f * i);
@@ -172,6 +201,19 @@ int main(void)
     object.name = "floor";
     objects.push_back(object);
 
+
+
+    
+    glm::vec3 pointLightPosition = glm::vec3(-2.0f, 3.0f, -5.0f);
+    glm::vec3 pointLightColor = glm::vec3(5.0f, 0.8f, 0.6f);
+
+    float constant = 1.0f;
+    float linear = 0.14f;
+    float quadratic = 0.07f;
+
+    lightSources.addPointLight(pointLightPosition, pointLightColor, constant, linear, quadratic);
+
+
     while (!glfwWindowShouldClose(window))
     {
         float time = glfwGetTime();
@@ -184,6 +226,14 @@ int main(void)
       
         for (unsigned int i = 0; i < objects.size(); i++) {
             if (objects[i].name == "basketball") {
+                objects[i].angle += deltaTime * glm::radians(90.0f);
+                if (objects[i].angle > glm::two_pi<float>())
+                    objects[i].angle -= glm::two_pi<float>();
+            }
+        }
+
+        for (unsigned int i = 0; i < objects.size(); i++) {
+            if (objects[i].name == "football") {
                 objects[i].angle += deltaTime * glm::radians(90.0f);
                 if (objects[i].angle > glm::two_pi<float>())
                     objects[i].angle -= glm::two_pi<float>();
@@ -205,6 +255,8 @@ int main(void)
         if (!lightSources.lightSources.empty() && lightSources.lightSources[0].type == 2) {
             lightSources.lightSources[0].position = newSpotPos;
             lightSources.lightSources[0].direction = glm::normalize(newSpotDir);
+
+            lightSources.lightSources[0].colour = glm::vec3(0.0f, 0.0f, 1.0f);
         }
 
         lightSources.toShader(shaderID, camera.view);
@@ -226,11 +278,14 @@ int main(void)
 
             if (objects[i].name == "floor")
                 floor.draw(shaderID);
+
+            if (objects[i].name == "football")
+                football.draw(shaderID);
         }
 
         lightSources.draw(shaderID, camera.view, camera.projection, sphere);
 
-        glm::vec3 pointLightPos = glm::vec3(0.0f, 2.0f, 2.0f);
+        glm::vec3 pointLightPos = glm::vec3(-10.0f, -1.0f, -2.0f);
 
         glm::mat4 translate = Maths::translate(pointLightPos);
         glm::mat4 scale = Maths::scale(glm::vec3(0.1f));
@@ -241,7 +296,7 @@ int main(void)
         glUniformMatrix4fv(glGetUniformLocation(shaderID, "MVP"), 1, GL_FALSE, &MVP[0][0]);
         glUniformMatrix4fv(glGetUniformLocation(shaderID, "MV"), 1, GL_FALSE, &MV[0][0]);
 
-        glUniform1f(glGetUniformLocation(shaderID, "ka"), 0.2f);
+        glUniform1f(glGetUniformLocation(shaderID, "ka"), 45.0f);
         glUniform1f(glGetUniformLocation(shaderID, "kd"), 0.4f);
         glUniform1f(glGetUniformLocation(shaderID, "ks"), 0.5f);
         glUniform1f(glGetUniformLocation(shaderID, "Ns"), 32.0f);
