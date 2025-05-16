@@ -137,9 +137,9 @@ int main(void)
 
 
     };
-    basketball.addTexture("../assets/DiffuseMap.JPG", "diffuse");
-    basketball.addTexture("../assets/NormalMap.PNG", "normal");
-    basketball.addTexture("../assets/SpecularMap.PNG", "specular");
+    basketball.addTexture("../assets/DiffuseLeather.JPG", "diffuse");
+    basketball.addTexture("../assets/NormalLeather.PNG", "normal");
+    basketball.addTexture("../assets/SpecularLeather.PNG", "specular");
     std::vector<Object> objects;
     Object object;
     object.name = "basketball";
@@ -230,7 +230,7 @@ int main(void)
 
         lightSources.draw(shaderID, camera.view, camera.projection, sphere);
 
-        glm::vec3 pointLightPos = glm::vec3(2.0f, 2.0f, 2.0f);
+        glm::vec3 pointLightPos = glm::vec3(0.0f, 2.0f, 2.0f);
 
         glm::mat4 translate = Maths::translate(pointLightPos);
         glm::mat4 scale = Maths::scale(glm::vec3(0.1f));
@@ -241,12 +241,15 @@ int main(void)
         glUniformMatrix4fv(glGetUniformLocation(shaderID, "MVP"), 1, GL_FALSE, &MVP[0][0]);
         glUniformMatrix4fv(glGetUniformLocation(shaderID, "MV"), 1, GL_FALSE, &MV[0][0]);
 
-        glUniform1f(glGetUniformLocation(shaderID, "ka"), 1.0f);
-        glUniform1f(glGetUniformLocation(shaderID, "kd"), 0.0f);
-        glUniform1f(glGetUniformLocation(shaderID, "ks"), 0.0f);
+        glUniform1f(glGetUniformLocation(shaderID, "ka"), 0.2f);
+        glUniform1f(glGetUniformLocation(shaderID, "kd"), 0.4f);
+        glUniform1f(glGetUniformLocation(shaderID, "ks"), 0.5f);
+        glUniform1f(glGetUniformLocation(shaderID, "Ns"), 32.0f);
 
         sphere.draw(shaderID);
 
+
+     
 
         glfwSwapBuffers(window);
         glfwPollEvents();
